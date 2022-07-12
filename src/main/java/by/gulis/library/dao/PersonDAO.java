@@ -36,12 +36,12 @@ public class PersonDAO {
 
     public void save(Person person) {
         jdbcTemplate.update("INSERT INTO Person(fio,year_of_birth) VALUES(?,?)",
-                person.getFio(), person.getYear_of_birth());
+                person.getFio(), person.getYear());
     }
 
     public void update(int id, Person person) {
         jdbcTemplate.update("UPDATE PERSON SET fio=?, year_of_birth=? WHERE person_id=?",
-                person.getFio(), person.getYear_of_birth(), id);
+                person.getFio(), person.getYear(), id);
     }
 
     public void delete(int id) {

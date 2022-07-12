@@ -6,9 +6,9 @@
 </head>
 <body>
 <p th:text="'ФИО: ' + ${person.getFio()}">VALUE</p>
-<p th:text="'Год рождения: ' + ${person.getYear_of_birth()}">VALUE</p>
+<p th:text="'Год рождения: ' + ${person.getYear()}">VALUE</p>
 <br/>
-<form th:method="GET" th:action="@{/people/{person_id}/edit(person_id=${person.getPerson_id()})}">
+<form th:method="GET" th:action="@{/people/{id}/edit(id=${person.getId()})}">
     <input type="submit" value="Редактировать!"/>
 </form>
 </body>
