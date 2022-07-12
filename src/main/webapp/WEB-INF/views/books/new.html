@@ -5,7 +5,7 @@
     <title>Добавление книги</title>
 </head>
 <body>
-<form th:method="POST" th:action="@{/people}" th:object="${person}">
+<form th:method="POST" th:action="@{/books}" th:object="${book}">
     <label for="name">Введите название книги: </label>
     <input type="text" th:field="*{name}" id="name"/>
     <div th:if="${#fields.hasErrors('name')}" th:errors="*{name}" style="color:red">Name error</div>
@@ -18,7 +18,7 @@
     <input type="text" th:field="*{year}" id="year"/>
     <div th:if="${#fields.hasErrors('year')}" th:errors="*{year}" style="color:red">Age error</div>
     <br/>
-    <input type="submit" value="Создать"/>
+    <input type="submit" value="Добавить"/>
 </form>
 </body>
 </html>

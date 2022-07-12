@@ -5,9 +5,9 @@
     <title>Книга</title>
 </head>
 <body>
-<p th:text="'Название книги: ' + ${person.getName()}">VALUE</p>
-<p th:text="'Автор книги: ' + ${person.getAuthor()}">VALUE</p>
-<p th:text="'Год книги: ' + ${person.getYear()}">VALUE</p>
+<p th:text="'Название книги: ' + ${book.getName()}">VALUE</p>
+<p th:text="'Автор книги: ' + ${book.getAuthor()}">VALUE</p>
+<p th:text="'Год книги: ' + ${book.getYear()}">VALUE</p>
 <br/>
 <form th:method="GET" th:action="@{/books/{id}/edit(id=${book.getId()})}">
     <input type="submit" value="Редактировать!"/>
