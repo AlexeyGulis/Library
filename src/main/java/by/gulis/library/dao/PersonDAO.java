@@ -19,19 +19,19 @@ public class PersonDAO {
     }
 
     public List<Person> index() {
-        return jdbcTemplate.query("SELECT * FROM Person", new BeanPropertyRowMapper<>(Person.class));
+        return jdbcTemplate.query("SELECT * FROM Person", new PersonMapper());
     }
 
     public Person show(int id) {
         return jdbcTemplate.query("SELECT * FROM Person WHERE person_id=?",
                 new Object[]{id},
-                new BeanPropertyRowMapper<>(Person.class)).stream().findAny().orElse(null);
+                new PersonMapper()).stream().findAny().orElse(null);
     }
 
     public Person show(String fio) {
         return jdbcTemplate.query("SELECT * FROM Person WHERE fio=?",
                 new Object[]{fio},
-                new BeanPropertyRowMapper<>(Person.class)).stream().findAny().orElse(null);
+                new PersonMapper()).stream().findAny().orElse(null);
     }
 
     public void save(Person person) {
