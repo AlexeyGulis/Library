@@ -5,8 +5,9 @@ import javax.validation.constraints.*;
 public class Person {
     private int id;
     @NotEmpty(message = "ФИО не должно быть пустым")
-    @Pattern(regexp = "[A-Z]\\w+ [A-Z]\\w+ [A-Z]\\w*", message = "ФИО должно быть формата(Фамилия Имя Отчество)")
-    @Size(min = 5, max = 200, message = "ФИО не должно быть больше чем 200 символов и меньше чем 5")
+    @Pattern(regexp = "[A-ZА-Я](?U)\\w* [A-ZА-Я](?U)\\w*( [A-ZА-Я](?U)\\w*){0,1}",
+            message = "Поле Автор должно быть формата(Фамилия Имя Отчество,где Отчество не обязательно")
+    @Size(max = 200, message = "ФИО не должно быть больше чем 200 символов")
     private String fio;
     @Min(value = 1900, message = "Год рождения должен быть больше чем 1900")
     private int year;

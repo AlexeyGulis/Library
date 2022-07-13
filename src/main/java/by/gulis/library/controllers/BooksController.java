@@ -1,7 +1,9 @@
 package by.gulis.library.controllers;
 
 import by.gulis.library.dao.BookDAO;
+import by.gulis.library.dao.PersonDAO;
 import by.gulis.library.models.Book;
+import by.gulis.library.models.Person;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -15,9 +17,12 @@ import javax.validation.Valid;
 public class BooksController {
     private final BookDAO bookDAO;
 
+    private final PersonDAO personDAO;
+
     @Autowired
-    public BooksController(BookDAO bookDAO) {
+    public BooksController(BookDAO bookDAO, PersonDAO personDAO) {
         this.bookDAO = bookDAO;
+        this.personDAO = personDAO;
     }
 
     @GetMapping()
@@ -29,6 +34,8 @@ public class BooksController {
     @GetMapping("/{id}")
     public String show(@PathVariable("id") int id, Model model) {
         model.addAttribute("book", bookDAO.show(id));
+        model.addAttribute("person", personDAO.show(bookDAO.show(id).getPersonId()));
+        model.addAttribute("people",personDAO.index());
         return "books/show";
     }
 
@@ -40,7 +47,6 @@ public class BooksController {
 
     @PostMapping()
     public String create(@ModelAttribute("person") @Valid Book book, BindingResult bindingResult) {
-        //validator.validate(person,bindingResult);
         if (bindingResult.hasErrors()) {
             return "/books/new";
         }
@@ -60,6 +66,12 @@ public class BooksController {
         if (bindingResult.hasErrors()) return "/books/edit";
         bookDAO.update(id, book);
         return "redirect:/books";
+    }
+    @PatchMapping("/{id}/release")
+    public String release(@ModelAttribute("book") @Valid Book book,
+                         BindingResult bindingResult, @PathVariable("id") int id) {
+        bookDAO.update(id, book);
+        return "redirect:/books/{id}";
     }
 
     @DeleteMapping("/{id}")

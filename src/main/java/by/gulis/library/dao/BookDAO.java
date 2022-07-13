@@ -29,12 +29,16 @@ public class BookDAO {
 
     public void save(Book book) {
         jdbcTemplate.update("INSERT INTO Book(name_of_book,author_of_the_book,year_of_book) VALUES(?,?,?)",
-                book.getName(), book.getAuthor(),book.getYear());
+                book.getName(), book.getAuthor(), book.getYear());
     }
 
     public void update(int id, Book book) {
-        jdbcTemplate.update("UPDATE Book SET name_of_book=?, author_of_the_book=?,year_of_book=? WHERE book_id=?",
-                book.getName(),book.getAuthor(),book.getYear(), id);
+        jdbcTemplate.update("UPDATE Book SET person_id=?, name_of_book=?, author_of_the_book=?,year_of_book=? WHERE book_id=?",
+                book.getPersonId(), book.getName(), book.getAuthor(), book.getYear(), id);
+    }
+
+    public List<Book> personBooks(int id) {
+        return jdbcTemplate.query("SELECT * FROM Book WHERE person_id=?", new Object[]{id}, new BookMapper());
     }
 
     public void delete(int id) {

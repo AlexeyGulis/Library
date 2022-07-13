@@ -1,5 +1,6 @@
 package by.gulis.library.controllers;
 
+import by.gulis.library.dao.BookDAO;
 import by.gulis.library.dao.PersonDAO;
 import by.gulis.library.models.Person;
 import by.gulis.library.util.PersonValidator;
@@ -16,11 +17,13 @@ import javax.validation.Valid;
 public class PeopleController {
 
     private final PersonDAO personDAO;
+    private final BookDAO bookDAO;
     private final PersonValidator validator;
 
     @Autowired
-    public PeopleController(PersonDAO personDAO, PersonValidator validator) {
+    public PeopleController(PersonDAO personDAO, BookDAO bookDAO, PersonValidator validator) {
         this.personDAO = personDAO;
+        this.bookDAO = bookDAO;
         this.validator = validator;
     }
 
@@ -33,6 +36,7 @@ public class PeopleController {
     @GetMapping("/{id}")
     public String show(@PathVariable("id") int id, Model model) {
         model.addAttribute("person", personDAO.show(id));
+        model.addAttribute("books",bookDAO.personBooks(id));
         return "people/show";
     }
 
